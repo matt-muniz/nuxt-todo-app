@@ -17,15 +17,22 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div>
-    <h1>Todays Task List:</h1>
-    <ul>
+  <div class="mt-5 p-3 bg-gray-100 border-gray-200 rounded-lg">
+    <div class="flex justify-between">
+      <h1 class="font-bold text-[20px] md:text-[25px]">Tasks For Today:</h1> 
+      <span>{{ today }}</span>
+    </div>
+    <ul class="mt-3">
       <li 
+        class="p-2 bg-white shadow-md mb-2 rounded-md"
         v-for="task 
         in todaysTasks" 
         :key="task.id">
-          {{ task.text }} - {{ task.dueDate }} - {{ task.order}}
+          <span class="ml-3">{{ task.text }}</span>
       </li>
     </ul>
+    <div class="mt-3 flex justify-end">
+      <button class="border pt-2 pb-2 pl-3 pr-3 rounded-md bg-gray-300">View All Tasks</button>
+    </div>
   </div>
 </template>
