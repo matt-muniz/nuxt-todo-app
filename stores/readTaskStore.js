@@ -1,21 +1,27 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { collection, getDoc, addDoc, deleteDoc, doc, updateDoc, onSnapshot, orderBy, query, writeBatch } from 'firebase/firestore';
 
-function getRandomDate() {
-  const today = new Date();
-  const end = new Date();
-  end.setMonth(today.getMonth() + 1);
-  return new Date(today.getTime() + Math.random() * (end.getTime() - today.getTime()));
-}
 
 export const useTaskStore = defineStore('taskStore', () => {
-  const tasks = ref(Array.from({ length: 10 }, (_, id) => ({
-    id,
-    title: `Task ${id + 1}`,
-    completed: false,
-    date: getRandomDate()
-  }))); 
+  const { $db } = useNuxtApp();
+  const taskList = ref([]);
+  const taskCollection = collection($db, 'tasks');
+  
+  const fetchTasks = async () => {
+    // if(auth.currentUser){
+      onSnapshot(query(taskCollection, orderBy("order", "asc")), (snapshot) => {
+        taskList.value = snapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id
+        }))
+      })
+    // }
+  }
+
   return {
+    fetchTasks,
+    taskList,
     tasks,
   };
 });
