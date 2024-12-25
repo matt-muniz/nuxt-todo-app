@@ -1,6 +1,8 @@
 <template>
-  <div class="bg-blue-100 h-screen pr-5 pl-5">
+  <div class="bg-blue-100 h-screen">
     <Header />
     <TodaysTasks />
+    <CreateTask />
+    <Footer />
   </div>
 </template>

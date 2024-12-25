@@ -1,6 +1,6 @@
 <script setup>
-import Settings from '~/assets/settings.svg';
-import Search from '~/assets/search.svg';
+import Settings from '~/assets/icons/settings.svg';
+import Search from '~/assets/icons/search.svg';
 </script>
 
 <template>

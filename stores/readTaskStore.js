@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { collection, getDoc, addDoc, deleteDoc, doc, updateDoc, onSnapshot, orderBy, query, writeBatch } from 'firebase/firestore';
 
 
-export const useTaskStore = defineStore('taskStore', () => {
+export const useReadTaskStore = defineStore('taskStore', () => {
   const { $db } = useNuxtApp();
   const taskList = ref([]);
   const taskCollection = collection($db, 'tasks');

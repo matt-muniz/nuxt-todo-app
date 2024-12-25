@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useTaskStore } from '~/stores/readTaskStore';
+import { useReadTaskStore } from '~/stores/readTaskStore';
 
-const readTask = useTaskStore();
+const readTask = useReadTaskStore();
 
 import { onMounted } from 'vue';
 
@@ -17,7 +17,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="mt-5 p-3 bg-gray-100 border-gray-200 rounded-lg">
+  <div class="mt-5 mr-5 ml-5 p-3 bg-gray-100 border-gray-200 rounded-lg">
     <div class="flex justify-between">
       <h1 class="font-bold text-[20px] md:text-[25px]">Tasks For Today:</h1> 
       <span>{{ today }}</span>

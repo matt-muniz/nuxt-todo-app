@@ -1,7 +1,7 @@
 <script setup>
-import { useTaskStore } from '~/stores/readTaskStore';
+import { useReadTaskStore } from '~/stores/readTaskStore';
 
-const readTask = useTaskStore();
+const readTask = useReadTaskStore();
 
 onMounted(() => {
   readTask.fetchTasks();
