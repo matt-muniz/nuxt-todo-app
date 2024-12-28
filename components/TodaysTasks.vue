@@ -17,7 +17,7 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="mt-5 mr-5 ml-5 p-3 bg-gray-100 border-gray-200 rounded-lg">
+  <div class="p-3 bg-gray-100 border-gray-200 rounded-lg">
     <div class="flex justify-between">
       <h1 class="font-bold text-[20px] md:text-[25px]">Tasks For Today:</h1> 
       <span>{{ today }}</span>

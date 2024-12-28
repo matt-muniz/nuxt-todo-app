@@ -1,8 +1,13 @@
+<script setup lang="ts">
+</script>
+
 <template>
-  <div class="bg-blue-100 h-screen">
-    <Header />
-    <TodaysTasks />
-    <CreateTask />
-    <Footer />
+  <Header />
+  <div class="bg-blue-100 min-h-screen relative">
+    <div class="mx-auto p-4 pb-16 ">
+      <TodaysTasks />
+      <CreateTask />
+    </div>
   </div>
+  <Footer />
 </template>
