@@ -41,10 +41,6 @@ export const useCalendarStore = defineStore('calendar', () => {
         return date.getMonth() === currentDate.value.getMonth() && date.getDate() === currentDay.value;
     };
 
-    const setDate = (day) => {
-        console.log(day.toISOString().split('T')[0]);
-    };
-
     return {
         setCurrentDate,
         currentDate,
@@ -55,6 +51,5 @@ export const useCalendarStore = defineStore('calendar', () => {
         prevMonth,
         nextMonth,
         markCurrentDay,
-        setDate,
     };
 });

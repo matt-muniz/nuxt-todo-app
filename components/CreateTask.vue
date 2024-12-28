@@ -9,7 +9,7 @@
       >
         <div v-if="showMenu" class="fixed h-3/5 bottom-14 left-0 right-0 bg-white p-4 shadow-lg">
           <h3 class="text-lg font-semibold">New Task</h3>
-          <input type="text" placeholder="Task name" class="mt-2 p-2 border rounded w-full">
+          <input v-model="useTaskStore.msg" type="text" placeholder="Task name" class="mt-2 p-2 border rounded w-full">
           <div>
           </div>
           <div>
@@ -17,7 +17,7 @@
               Choose Date
             </button>
           </div>
-          <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
+          <button @click="useTaskStore.addTask" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
             Add Task
           </button>
           <button @click="toggleMenu" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-red-600">
@@ -36,6 +36,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useCreateTaskStore } from '~/stores/createTaskStore';
+
+const useTaskStore = useCreateTaskStore();
 
 const showMenu = ref(false);
 const showCalendar = ref(false);

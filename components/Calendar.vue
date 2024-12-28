@@ -37,8 +37,10 @@
 
 <script setup>
 import { useCalendarStore } from '~/stores/calendarStore';
+import { useCreateTaskStore } from '~/stores/createTaskStore';
 
     const useCalendar = useCalendarStore();
+    const useTaskStore = useCreateTaskStore();
 
     const emit = defineEmits(); // defineEmits is used to define the emit function
 
@@ -51,7 +53,7 @@ import { useCalendarStore } from '~/stores/calendarStore';
     };
 
     const getCurrentDay = (date) => {
-        useCalendar.setDate(date);
+        useTaskStore.setDate(date);
         emit('done');
     };
 
