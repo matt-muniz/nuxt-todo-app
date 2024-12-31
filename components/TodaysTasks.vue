@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useReadTaskStore } from '~/stores/readTaskStore';
+import { useDeleteTaskStore } from '~/stores/deleteTaskStore';
 
 const readTask = useReadTaskStore();
+const deleteTask = useDeleteTaskStore();
 
 import { onMounted } from 'vue';
 
@@ -24,11 +26,22 @@ onMounted(() => {
     </div>
     <ul class="mt-3">
       <li 
-        class="p-2 bg-white shadow-md mb-2 rounded-md"
+        class="p-2 bg-white shadow-md mb-2 rounded-md justify-between flex"
         v-for="task 
         in todaysTasks" 
         :key="task.id">
+        <div>
+        <input 
+          type="checkbox" 
+          v-model="task.completed"
+        />
           <span class="ml-3">{{ task.text }}</span>
+        </div>
+        <button
+          @click="deleteTask.deleteTask(task.id)"
+          class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
+          Delete
+        </button>
       </li>
     </ul>
     <div class="mt-3 flex justify-end">

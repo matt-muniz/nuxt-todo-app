@@ -17,7 +17,7 @@
               Choose Date
             </button>
           </div>
-          <button @click="useTaskStore.addTask" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
+          <button @click="useTaskStore.addTask(readTask.taskList)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
             Add Task
           </button>
           <button @click="toggleMenu" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-red-600">
@@ -37,8 +37,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useCreateTaskStore } from '~/stores/createTaskStore';
+import { useReadTaskStore } from '~/stores/readTaskStore';
 
 const useTaskStore = useCreateTaskStore();
+const readTask = useReadTaskStore();
 
 const showMenu = ref(false);
 const showCalendar = ref(false);

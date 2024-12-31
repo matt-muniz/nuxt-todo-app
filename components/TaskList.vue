@@ -16,6 +16,10 @@ onMounted(() => {
         in readTask.taskList" 
         :key="task.id">
           {{ task.text }}
+        <button 
+          class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
+          Delete
+        </button>
       </li>
     </ul>
   </div>

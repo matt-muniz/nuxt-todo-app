@@ -12,13 +12,13 @@ const msg = ref('');
 const dueDate = ref('');
 
 // Function to add a task
-const addTask = async () => {
+const addTask = async (taskLength) => {
 if (msg.value.trim() === '') return; // Prevent empty tasks
-const maxOrder = taskList.value.length > 0
-    ? Math.max(...taskList.value.map(task => task.order)) 
+const maxOrder = taskLength.length > 0
+    ? Math.max(...taskLength.map(task => task.order)) 
     : 0;
 
-const docRef = await addDoc(taskCollection, {text: msg.value, completed: false, dueDate: dueDate.value, listName: taskListName.value, order: maxOrder + 1});
+const docRef = await addDoc(taskCollection, {text: msg.value, completed: false, dueDate: dueDate.value ? dueDate.value : new Date().toISOString().split('T')[0], listName: taskListName.value, order: maxOrder + 1});
 msg.value = ''; // Clear input field
 dueDate.value = ''; // Clear input field
 };
