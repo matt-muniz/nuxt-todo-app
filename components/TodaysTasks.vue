@@ -2,9 +2,11 @@
 import { ref, computed } from 'vue';
 import { useReadTaskStore } from '~/stores/readTaskStore';
 import { useDeleteTaskStore } from '~/stores/deleteTaskStore';
+import { useDescriptionStore } from '~/stores/createDescriptionStore';
 
 const readTask = useReadTaskStore();
 const deleteTask = useDeleteTaskStore();
+const createDescription = useDescriptionStore();
 
 import { onMounted } from 'vue';
 
@@ -26,22 +28,42 @@ onMounted(() => {
     </div>
     <ul class="mt-3">
       <li 
-        class="p-2 bg-white shadow-md mb-2 rounded-md justify-between flex"
+        class="p-2 bg-white shadow-md rounded-md"
         v-for="task 
         in todaysTasks" 
         :key="task.id">
-        <div>
-        <input 
-          type="checkbox" 
-          v-model="task.completed"
-        />
-          <span class="ml-3">{{ task.text }}</span>
+        <div class="flex">
+          <input 
+            type="checkbox" 
+            v-model="task.completed"
+          />
+          <div class="justify-between w-full flex items-center">
+            <span class="ml-3">{{ task.text }}</span>
+            <button
+              @click="deleteTask.deleteTask(task.id)"
+              class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
+              Delete
+            </button>
+          </div>
         </div>
-        <button
-          @click="deleteTask.deleteTask(task.id)"
-          class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
-          Delete
-        </button>
+        <div v-if="task.description != ''">
+          <div class="flex justify-between items-center">
+            {{ task.description }}
+            <button
+              @click="createDescription.removeDescription(task.id)"
+              class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
+              Delete
+            </button>
+          </div>
+        </div>
+        <div v-else>
+          <input
+            type="text" 
+            @keyup.enter="createDescription.addDescription(task.id, $event.target.value)"
+            placeholder="Add a description" 
+            class="mt-2 p-2 border rounded-md w-full"
+          />
+        </div>
       </li>
     </ul>
     <div class="mt-3 flex justify-end">

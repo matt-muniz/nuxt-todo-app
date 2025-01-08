@@ -9,6 +9,7 @@ const taskList = ref([]);
 const taskCollection = collection($db, 'tasks');
 const taskListName = ref('');
 const msg = ref('');
+const description = ref('');
 const dueDate = ref('');
 
 // Function to add a task
@@ -18,7 +19,17 @@ const maxOrder = taskLength.length > 0
     ? Math.max(...taskLength.map(task => task.order)) 
     : 0;
 
-const docRef = await addDoc(taskCollection, {text: msg.value, completed: false, dueDate: dueDate.value ? dueDate.value : new Date().toISOString().split('T')[0], listName: taskListName.value, order: maxOrder + 1});
+const docRef = await 
+    addDoc(taskCollection, 
+        {text: msg.value, 
+        completed: false, 
+        dueDate: dueDate.value 
+        ? dueDate.value 
+        : new Date().toISOString().split('T')[0], 
+        listName: taskListName.value, 
+        order: maxOrder + 1,
+        description: description.value}
+    );
 msg.value = ''; // Clear input field
 dueDate.value = ''; // Clear input field
 };
@@ -30,6 +41,7 @@ const setDate = (day) => {
 return {
 addTask,
 msg,
+description,
 dueDate,
 taskListName,
 taskList,
