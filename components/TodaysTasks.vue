@@ -2,15 +2,17 @@
 import { ref, computed } from 'vue';
 import { useReadTaskStore } from '~/stores/readTaskStore';
 import { useDeleteTaskStore } from '~/stores/deleteTaskStore';
-import { useDescriptionStore } from '~/stores/createDescriptionStore';
 
 const readTask = useReadTaskStore();
 const deleteTask = useDeleteTaskStore();
-const createDescription = useDescriptionStore();
 
 import { onMounted } from 'vue';
+import Description from './Description.vue';
 
-const today = new Date().toISOString().split('T')[0];
+// const today = new Date().toISOString().split('T')[0];
+// const today2 = new Date().toLocaleDateString();
+
+const today = new Date().toLocaleDateString('en-US');
 
 const todaysTasks = computed(() => {
   return readTask.taskList.filter(task => task.dueDate === today);
@@ -46,24 +48,7 @@ onMounted(() => {
             </button>
           </div>
         </div>
-        <div v-if="task.description != ''">
-          <div class="flex justify-between items-center">
-            {{ task.description }}
-            <button
-              @click="createDescription.removeDescription(task.id)"
-              class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">
-              Delete
-            </button>
-          </div>
-        </div>
-        <div v-else>
-          <input
-            type="text" 
-            @keyup.enter="createDescription.addDescription(task.id, $event.target.value)"
-            placeholder="Add a description" 
-            class="mt-2 p-2 border rounded-md w-full"
-          />
-        </div>
+        <Description :task="task" />
       </li>
     </ul>
     <div class="mt-3 flex justify-end">

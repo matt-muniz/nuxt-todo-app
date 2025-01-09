@@ -11,6 +11,7 @@ const taskListName = ref('');
 const msg = ref('');
 const description = ref('');
 const dueDate = ref('');
+const today = new Date().toLocaleDateString('en-US');
 
 // Function to add a task
 const addTask = async (taskLength) => {
@@ -25,7 +26,7 @@ const docRef = await
         completed: false, 
         dueDate: dueDate.value 
         ? dueDate.value 
-        : new Date().toISOString().split('T')[0], 
+        : today, 
         listName: taskListName.value, 
         order: maxOrder + 1,
         description: description.value}
@@ -35,7 +36,7 @@ dueDate.value = ''; // Clear input field
 };
 
 const setDate = (day) => {
-    dueDate.value = day.toISOString().split('T')[0];
+    dueDate.value = day.toLocaleDateString('en-US');
 };
 
 return {
