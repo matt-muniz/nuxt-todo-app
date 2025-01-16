@@ -40,7 +40,7 @@ onMounted(() => {
             v-model="task.completed"
           />
           <div class="justify-between w-full flex items-center">
-            <span class="ml-3">{{ task.text }}</span>
+            <span class="ml-3">{{ task.text }} Time to be completed {{ task.time }}</span>
             <button
               @click="deleteTask.deleteTask(task.id)"
               class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">

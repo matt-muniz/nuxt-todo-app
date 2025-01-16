@@ -12,6 +12,8 @@ const msg = ref('');
 const description = ref('');
 const dueDate = ref('');
 const today = new Date().toLocaleDateString('en-US');
+const time = ref('');
+const errorMessage = ref('');
 
 // Function to add a task
 const addTask = async (taskLength) => {
@@ -29,14 +31,46 @@ const docRef = await
         : today, 
         listName: taskListName.value, 
         order: maxOrder + 1,
-        description: description.value}
+        description: description.value,
+        time: time.value}
     );
 msg.value = ''; // Clear input field
 dueDate.value = ''; // Clear input field
 };
 
 const setDate = (day) => {
-    dueDate.value = day.toLocaleDateString('en-US');
+    if (day.toLocaleDateString('en-US') >= today) {
+        dueDate.value = day.toLocaleDateString('en-US');
+    }else {
+        dueDate.value = today;
+        alert('Please select todays date or a future date');
+    }
+};
+
+const padWithLeadingZeros = (number) => {
+    return number.toString().padStart(2, '0');
+}
+
+const setTime = (setTime) => {
+    const setTimeString = `${setTime.hour}:${padWithLeadingZeros(setTime.minute)} ${setTime.ampm}`;
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTime = currentHour + currentMinutes / 60;
+    const setTimeInMinutes =
+        setTime.ampm === 'PM' && setTime.hour === 12 ? setTime.hour + setTime.minute / 60 :
+        setTime.ampm === 'PM' && setTime.hour != 12 ? setTime.hour + 12 + setTime.minute / 60 :
+        setTime.ampm === 'AM' && setTime.hour === 12 ? setTime.hour * 0 + setTime.minute / 60 : 
+        setTime.hour + setTime.minute / 60;
+
+    if (setTimeInMinutes < currentTime && today || setTimeInMinutes < currentTime && dueDate.value === today) {
+        errorMessage.value = 'Please select a time that is not in the past.';
+        return;
+    }
+
+    time.value = setTimeString;
+
+    errorMessage.value = '';
 };
 
 return {
@@ -46,7 +80,9 @@ description,
 dueDate,
 taskListName,
 taskList,
+errorMessage,
 setDate,
+setTime
 };
 
 })

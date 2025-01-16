@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="bg-white rounded-lg shadow py-4">
+    <div class="flex">
+        <div class="bg-red-100">
             <div class="flex justify-between space-x-4 m-4">
                 <button @click="cancel" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200">Cancel</button>
                 <button @click="done" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Done</button>
@@ -24,11 +24,11 @@
             </div>
             <div class="-mx-1 -mb-1">
                 <div class="flex justify-between m-5" v-for="(week, index) in useCalendar.weeks" :key="index">
-                <div class="px-2 py-2" v-for="day in week" :key="day.date">
-                    <div @click="getCurrentDay(day.date)" :class="['rounded-md p-2 text-center', day.isCurrentMonth ? 'text-gray-800' : 'text-gray-400', useCalendar.markCurrentDay(day.date) ? 'bg-blue-500 text-white' : '']">
-                    {{ day.date.getDate() }}
+                    <div class="px-2 py-2" v-for="day in week" :key="day.date">
+                        <div @click="getCurrentDay(day.date)" :class="['rounded-md p-2 text-center', day.isCurrentMonth ? 'text-gray-800' : 'text-gray-400', useCalendar.markCurrentDay(day.date) ? 'bg-blue-500 text-white' : '']">
+                        {{ day.date.getDate() }}
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -39,22 +39,22 @@
 import { useCalendarStore } from '~/stores/calendarStore';
 import { useCreateTaskStore } from '~/stores/createTaskStore';
 
-    const useCalendar = useCalendarStore();
-    const useTaskStore = useCreateTaskStore();
+const useCalendar = useCalendarStore();
+const useTaskStore = useCreateTaskStore();
 
-    const emit = defineEmits(); // defineEmits is used to define the emit function
+const emit = defineEmits(); // defineEmits is used to define the emit function
 
-    const cancel = () => {
-        emit('cancel');
-    };
+const cancel = () => {
+    emit('cancel');
+};
 
-    const done = () => {
-        emit('done');
-    };
+const done = () => {
+    emit('done');
+};
 
-    const getCurrentDay = (date) => {
-        useTaskStore.setDate(date);
-        emit('done');
-    };
+const getCurrentDay = (date) => {
+    useTaskStore.setDate(date);
+    emit('done');
+};
 
 </script>

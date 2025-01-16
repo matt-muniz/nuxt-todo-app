@@ -11,10 +11,13 @@
           <h3 class="text-lg font-semibold">New Task</h3>
           <input v-model="useTaskStore.msg" type="text" placeholder="Task name" class="mt-2 p-2 border rounded w-full">
           <div>
-          </div>
-          <div>
             <button @click="toggleCalendar" class="bg-blue-100 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
               Choose Date
+            </button>
+          </div>
+          <div>
+            <button @click="toggleTimeSelector" class="bg-green-100 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
+              Choose Time
             </button>
           </div>
           <button @click="useTaskStore.addTask(readTask.taskList)" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg hover:bg-blue-600">
@@ -26,8 +29,13 @@
         </div>
       </transition>
       <Transition name="slide-up">
-        <div v-if="showCalendar" class="fixed h-3/5 bottom-14 left-0 right-0 overflow-auto">
+        <div v-if="showCalendar" class="bg-white fixed h-3/5 bottom-14 left-0 right-0 overflow-auto">
           <Calendar @done="toggleCalendar" @cancel="toggleCalendar"/>
+        </div>
+      </Transition>
+      <Transition name="slide-up">
+        <div v-if="showTimeSelector" class="bg-white fixed h-3/5 bottom-14 left-0 right-0 overflow-auto">
+          <TimeSelector @done="toggleTimeSelector" @cancel="toggleTimeSelector"/>
         </div>
       </Transition>
     </div>
@@ -44,12 +52,16 @@ const readTask = useReadTaskStore();
 
 const showMenu = ref(false);
 const showCalendar = ref(false);
+const showTimeSelector = ref(false);
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
 const toggleCalendar = () => {
   showCalendar.value = !showCalendar.value;
+};
+const toggleTimeSelector = () => {
+  showTimeSelector.value = !showTimeSelector.value;
 };
 </script>
 

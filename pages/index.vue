@@ -9,8 +9,5 @@
       <CreateTask />
     </div>
   </div>
-  <div class="absolute bottom-4 right-4">
-    <input type="datetime-local" class="p-2 border rounded" />
-  </div>
   <Footer />
 </template>
