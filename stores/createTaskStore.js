@@ -11,7 +11,7 @@ const taskListName = ref('');
 const msg = ref('');
 const description = ref('');
 const dueDate = ref('');
-const today = new Date().toLocaleDateString('en-US');
+const today = new Date();
 const time = ref('');
 const errorMessage = ref('');
 
@@ -28,7 +28,7 @@ const docRef = await
         completed: false, 
         dueDate: dueDate.value 
         ? dueDate.value 
-        : today, 
+        : today.toLocaleDateString('en-US'), 
         listName: taskListName.value, 
         order: maxOrder + 1,
         description: description.value,
@@ -39,12 +39,15 @@ dueDate.value = ''; // Clear input field
 };
 
 const setDate = (day) => {
-    if (day.toLocaleDateString('en-US') >= today) {
+    if (day.getDate() >= today.getDate()) {
         dueDate.value = day.toLocaleDateString('en-US');
+        errorMessage.value = '';
     }else {
         dueDate.value = today;
-        alert('Please select todays date or a future date');
+        errorMessage.value = 'Please select todays date or a future date';
+        return;
     }
+
 };
 
 const padWithLeadingZeros = (number) => {

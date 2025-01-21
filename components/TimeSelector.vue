@@ -47,7 +47,6 @@ const cancel = () => {
 
 const done = (time) => {
     useTaskStore.setTime(time);
-    console.log(useTaskStore.errorMessage);
     if (useTaskStore.errorMessage) return;
     emit('done');
 };

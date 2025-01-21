@@ -13,7 +13,6 @@ export const useDescriptionStore = defineStore('description', () => {
         const docRef = doc($db, 'tasks', taskId);
         await updateDoc(docRef, { description });
         isEditingText.value = '';
-        console.log('isEditingText');
     };
 
     const updateDescription = async (taskId, newDescription) => {
