@@ -2,9 +2,13 @@
 import { ref, computed } from 'vue';
 import { useReadTaskStore } from '~/stores/readTaskStore';
 import { useDeleteTaskStore } from '~/stores/deleteTaskStore';
+import { useUpdateTaskStore } from '~/stores/updateTaskStore';
+import { useToggleCreateTaskStore } from '~/stores/toggleCreateTaskStore';
 
 const readTask = useReadTaskStore();
 const deleteTask = useDeleteTaskStore();
+const updateTask = useUpdateTaskStore();
+const toggleCreateTaskView = useToggleCreateTaskStore();
 
 import { onMounted } from 'vue';
 import Description from './Description.vue';
@@ -13,6 +17,7 @@ import Description from './Description.vue';
 // const today2 = new Date().toLocaleDateString();
 
 const today = new Date().toLocaleDateString('en-US');
+
 
 const todaysTasks = computed(() => {
   return readTask.taskList.filter(task => task.dueDate === today);
@@ -40,7 +45,10 @@ onMounted(() => {
             v-model="task.completed"
           />
           <div class="justify-between w-full flex items-center">
-            <span class="ml-3">{{ task.text }} Time to be completed {{ task.time }}</span>
+            <span
+              @dblclick="toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)"
+              class="cursor-pointer ml-3">{{ task.text }} Time to be completed: {{ !task.time ? 'N/A' : task.time }}
+            </span>
             <button
               @click="deleteTask.deleteTask(task.id)"
               class="mr-3 text-red-500 bg-gray-100 p-1 rounded-md hover:bg-red-500 hover:text-white">

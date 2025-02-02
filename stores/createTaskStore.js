@@ -17,25 +17,26 @@ const errorMessage = ref('');
 
 // Function to add a task
 const addTask = async (taskLength) => {
-if (msg.value.trim() === '') return; // Prevent empty tasks
-const maxOrder = taskLength.length > 0
-    ? Math.max(...taskLength.map(task => task.order)) 
-    : 0;
+    if (msg.value.trim() === '') return; // Prevent empty tasks
+    const maxOrder = taskLength.length > 0
+        ? Math.max(...taskLength.map(task => task.order)) 
+        : 0;
 
-const docRef = await 
-    addDoc(taskCollection, 
-        {text: msg.value, 
-        completed: false, 
-        dueDate: dueDate.value 
-        ? dueDate.value 
-        : today.toLocaleDateString('en-US'), 
-        listName: taskListName.value, 
-        order: maxOrder + 1,
-        description: description.value,
-        time: time.value}
-    );
-msg.value = ''; // Clear input field
-dueDate.value = ''; // Clear input field
+    const docRef = await 
+        addDoc(taskCollection, 
+            {text: msg.value, 
+            completed: false, 
+            dueDate: dueDate.value 
+            ? dueDate.value 
+            : today.toLocaleDateString('en-US'), 
+            listName: taskListName.value, 
+            order: maxOrder + 1,
+            description: description.value,
+            time: time.value}
+        );
+    msg.value = ''; // Clear input field
+    dueDate.value = ''; // Clear input field
+    time.value = ''; // Clear time field
 };
 
 const setDate = (day) => {
@@ -84,6 +85,7 @@ dueDate,
 taskListName,
 taskList,
 errorMessage,
+time,
 setDate,
 setTime
 };

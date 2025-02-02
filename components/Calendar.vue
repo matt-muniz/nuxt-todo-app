@@ -26,7 +26,7 @@
                 <h1 class="flex justify-center mt-5 text-red-500 font-bold">{{ useTaskStore.errorMessage }}</h1>
                 <div class="flex justify-between m-5" v-for="(week, index) in useCalendar.weeks" :key="index">
                     <div class="px-2 py-2" v-for="day in week" :key="day.date">
-                        <div @click="getCurrentDay(day.date)" :class="['rounded-md p-2 text-center', day.isCurrentMonth ? 'text-gray-800' : 'text-gray-400', useCalendar.markCurrentDay(day.date) ? 'bg-blue-500 text-white' : '']">
+                        <div @click="getCurrentDay(day.date)" :class="['cursor-pointer rounded-md p-2 text-center', day.isCurrentMonth ? 'text-gray-800' : 'text-gray-400', useCalendar.markCurrentDay(day.date) ? 'bg-blue-500 text-white px-3' : '']">
                         {{ day.date.getDate() }}
                         </div>
                     </div>
