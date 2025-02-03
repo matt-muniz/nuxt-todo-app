@@ -25,7 +25,13 @@ export const useUpdateTaskStore = defineStore('updateTaskStore', () => {
         createTaskStore.time = ''; 
     };
 
+    const completedTask = async (taskId, completed) => {
+        const docRef = doc($db, 'tasks', taskId)
+        await updateDoc(docRef, {completed})
+    }
+
 return {
     updateTaskItem,
+    completedTask,
 }
 })

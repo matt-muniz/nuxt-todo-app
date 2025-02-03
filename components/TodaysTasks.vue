@@ -43,11 +43,12 @@ onMounted(() => {
           <input 
             type="checkbox" 
             v-model="task.completed"
+            @change="updateTask.completedTask(task.id, task.completed)"
           />
           <div class="justify-between w-full flex items-center">
             <span
               @dblclick="toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)"
-              class="cursor-pointer ml-3">{{ task.text }} Time to be completed: {{ !task.time ? 'N/A' : task.time }}
+              :class="[{ completed: task.completed }, 'cursor-pointer', 'ml-3']">{{ task.text }} Time to be completed: {{ !task.time ? 'N/A' : task.time }}
             </span>
             <button
               @click="deleteTask.deleteTask(task.id)"
