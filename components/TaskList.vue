@@ -36,7 +36,7 @@ onMounted(() => {
           <div class="justify-between w-full flex items-center">
             <span
               v-double-tap="() => toggleCreateTaskView.onDoubleTap(task.id, task.text, task.dueDate, task.time)"
-              @dblclick="toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)"
+              @dblclick="toggleCreateTaskView.onDoubleTap(task.id, task.text, task.dueDate, task.time)"
               :class="[{ completed: task.completed }, 'cursor-pointer', 'ml-3']">{{ task.text }} Time to be completed: {{ !task.time ? 'N/A' : task.time }}
             </span>
             <button

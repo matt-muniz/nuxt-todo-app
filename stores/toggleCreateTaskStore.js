@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useReadTaskStore } from './readTaskStore';
+
 
 export const useToggleCreateTaskStore = defineStore('toggleCreateTask', () => {
 
@@ -10,6 +12,8 @@ const taskId = ref('');
 const dueDate = ref('');
 const time = ref('');
 const msg = ref('');
+
+const fetchTasks = useReadTaskStore();
 
 const toggleMenu = () => {
     showMenu.value = !showMenu.value;
@@ -32,8 +36,8 @@ const editTaskItem = (id, newMsg, newDate, newTime) => {
 }
 
 const onDoubleTap = (id, newMsg, newDate, newTime) => { 
-    // toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)
     showMenu.value ? null : editTaskItem(id, newMsg, newDate, newTime)
+    fetchTasks.fetchDocuments(id);
 }
 
 return {
