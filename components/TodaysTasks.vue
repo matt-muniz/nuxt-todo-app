@@ -13,9 +13,6 @@ const toggleCreateTaskView = useToggleCreateTaskStore();
 import { onMounted } from 'vue';
 import Description from './Description.vue';
 
-// const today = new Date().toISOString().split('T')[0];
-// const today2 = new Date().toLocaleDateString();
-
 const today = new Date().toLocaleDateString('en-US');
 
 
@@ -35,7 +32,7 @@ onMounted(() => {
     </div>
     <ul class="mt-3">
       <li 
-        class="p-2 bg-white shadow-md rounded-md"
+        class="p-2 mt-2 bg-white shadow-md rounded-md"
         v-for="task 
         in todaysTasks" 
         :key="task.id">
@@ -47,6 +44,7 @@ onMounted(() => {
           />
           <div class="justify-between w-full flex items-center">
             <span
+              v-double-tap="() => toggleCreateTaskView.onDoubleTap(task.id, task.text, task.dueDate, task.time)"
               @dblclick="toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)"
               :class="[{ completed: task.completed }, 'cursor-pointer', 'ml-3']">{{ task.text }} Time to be completed: {{ !task.time ? 'N/A' : task.time }}
             </span>
@@ -61,7 +59,7 @@ onMounted(() => {
       </li>
     </ul>
     <div class="mt-3 flex justify-end">
-      <button class="border pt-2 pb-2 pl-3 pr-3 rounded-md bg-gray-300">View All Tasks</button>
+      <NuxtLink to="/tasks" class="border pt-2 pb-2 pl-3 pr-3 rounded-md bg-gray-300">View All Tasks</NuxtLink>
     </div>
   </div>
 </template>

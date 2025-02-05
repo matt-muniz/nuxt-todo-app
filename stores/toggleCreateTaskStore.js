@@ -31,6 +31,11 @@ const editTaskItem = (id, newMsg, newDate, newTime) => {
     dueDate.value = newDate;
 }
 
+const onDoubleTap = (id, newMsg, newDate, newTime) => { 
+    // toggleCreateTaskView.showMenu ? null : toggleCreateTaskView.editTaskItem(task.id, task.text, task.dueDate, task.time)
+    showMenu.value ? null : editTaskItem(id, newMsg, newDate, newTime)
+}
+
 return {
     showMenu,
     showCalendar,
@@ -43,5 +48,6 @@ return {
     toggleCalendar,
     toggleTimeSelector,
     editTaskItem,
+    onDoubleTap,
 }
 })
